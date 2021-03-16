@@ -10,7 +10,7 @@ class Roll(commands.Cog):
     self.client = client
 
   @commands.command()
-  async def roll(self, ctx):
+  async def rolls(self, ctx):
     user_choice = random.randint(1,9)
     comp_choice = random.randint(1,9)
 

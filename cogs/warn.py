@@ -6,7 +6,7 @@ class Warn(commands.Cog):
     self.client = client
 
   @commands.command()
-  @commands.has_permissions(kick_members=True)
+  @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
   async def warn(self, ctx, member : discord.Member, *, reason=None):
     channel = discord.utils.get(member.guild.channels, name="logs")
     embed=discord.Embed(title="Warn", color=discord.Color.blue())

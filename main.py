@@ -3,6 +3,8 @@ import os
 from discord.ext import commands
 #from keep_alive import keep_alive
 
+BOT_TOKEN = os.getenv("TOKEN")
+
 intents = discord.Intents().all()
 client = commands.Bot(intents=intents, command_prefix='-')
 client.remove_command('help')
@@ -40,4 +42,4 @@ async def on_member_join(member):
     await member.add_roles(role)
 
 #keep_alive()
-client.run('TOKEN')
+client.run('BOT_TOKEN')

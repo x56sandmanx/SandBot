@@ -7,7 +7,6 @@ class Mute(commands.Cog):
     self.client = client
 
   @commands.command()
-  @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
   async def mute(self, ctx, member: discord.Member, *, reason=None):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     await member.add_roles(role)

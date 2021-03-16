@@ -6,6 +6,7 @@ class Kick(commands.Cog):
     self.client = client
 
   @commands.command()
+  @commands.has_permissions(kick_members=True)
   @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
   async def kick(self, ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)

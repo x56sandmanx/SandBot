@@ -42,5 +42,6 @@ async def on_member_join(member):
 with open('token.txt') as f:
     TOKEN = f.readline()
 
+token = os.environ.get('TOKEN')
 #keep_alive()
-client.run(TOKEN)
+client.run(token)

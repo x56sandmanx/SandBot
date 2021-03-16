@@ -27,7 +27,7 @@ class Mute(commands.Cog):
       if role.name=="Muted":
         await member.add_roles(role)
         channel = discord.utils.get(member.guild.channels, name="logs")
-        embed=discord.Embed(title="Mute", color=discord.Color.blue())
+        embed=discord.Embed(title="Temp Mute", color=discord.Color.blue())
         embed.set_thumbnail(url=ctx.author.avatar_url)
         embed.add_field(name="User", value=member.mention, inline=True)
         embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)

@@ -42,9 +42,6 @@ async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name="Sandling")
     await member.add_roles(role)
 
-with open('token.txt') as f:
-    TOKEN = f.readline()
-
 @client.command()
 async def bal(ctx):
     await open_account(ctx.author)
@@ -94,6 +91,8 @@ async def getBankData():
 
     return users
 
+with open('token.txt') as f:
+    TOKEN = f.readline()
 token = os.environ.get('TOKEN')
 #keep_alive()
-client.run(TOKEN)
+client.run(token)

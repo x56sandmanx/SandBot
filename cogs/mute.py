@@ -65,9 +65,5 @@ class Mute(commands.Cog):
     embed.add_field(name="Reason", value=reason, inline=True)
     await channel.send(embed=embed)
 
-  @commands.Cog.listener()
-  async def on_command_error(self, ctx, error):
-    await ctx.send(f"Invalid input, use **-help** for help")
-
 def setup(client):
   client.add_cog(Mute(client))

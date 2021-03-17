@@ -1,6 +1,8 @@
 import discord
 import os
 from discord.ext import commands
+from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
+from discord.errors import Forbidden
 import json
 import random
 import os
@@ -57,6 +59,7 @@ async def bal(ctx):
     await ctx.send(embed=em)
 
 @client.command()
+@commands.cooldown(1, 300, commands.BucketType.user)
 async def beg(ctx):
     await open_account(ctx.author)
     user = ctx.author
@@ -91,8 +94,16 @@ async def getBankData():
 
     return users
 
+@client.event
+async def on_command_error(ctx, exc):
+    if isinstance(exc, CommandOnCooldown):
+        await ctx.send(f"That command is on cooldown. Try again in {exc.retry_after//60+1:,.2f} minutes")
+    elif isinstance(exc, Forbidden):
+        await ctx.send("You do not have permission to do that.")
+
+
 #with open('token.txt') as f:
-    #TOKEN = f.readline()
+#    TOKEN = f.readline()
 token = os.environ.get('TOKEN')
 #keep_alive()
 client.run(token)

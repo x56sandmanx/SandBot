@@ -31,7 +31,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.2"))
+                                 activity=discord.Game("-help | SandBot v1.3"))
     print('We have logged in as {0.user}'.format(client))
 
 
@@ -54,8 +54,8 @@ async def bal(ctx):
     bank_amt = users[str(user.id)]["bank"]
 
     em =discord.Embed(title=f"{ctx.author.name}'s balance",color=discord.Color.blue())
-    em.add_field(name="Wallet",value=wallet_amt)
-    em.add_field(name="Bank",value=bank_amt)
+    em.add_field(name="Wallet",value=f"${wallet_amt}")
+    em.add_field(name="Bank",value=f"${bank_amt}")
     await ctx.send(embed=em)
 
 @client.command()
@@ -66,7 +66,7 @@ async def beg(ctx):
     users = await getBankData()
 
     earnings = random.randrange(101)
-    await ctx.send(f"Someone gave you {earnings} coins!")
+    await ctx.send(f"Someone gave you ${earnings}!")
 
     users[str(user.id)]["wallet"] += earnings
 
@@ -103,7 +103,7 @@ async def on_command_error(ctx, exc):
 
 
 #with open('token.txt') as f:
-#    TOKEN = f.readline()
+ #   TOKEN = f.readline()
 token = os.environ.get('TOKEN')
 #keep_alive()
 client.run(token)

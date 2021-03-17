@@ -24,6 +24,8 @@ class Help(commands.Cog):
     embed=discord.Embed(title="Help", color=discord.Color.blue())
     embed.add_field(name="-kiss [@person]", value="kiss someone in the server", inline=False)
     embed.add_field(name="-userInfo / -userInfo [@person]", value="get information on you or a user", inline=False)
+    embed.add_field(name="-bal / -bal", value="check your balance", inline=False)
+    embed.add_field(name="-beg / -beg", value="beg for money", inline=False)
     embed.set_footer(text="Help page 2/2")
     await ctx.send(embed=embed)
 

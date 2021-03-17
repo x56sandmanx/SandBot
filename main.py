@@ -91,8 +91,8 @@ async def getBankData():
 
     return users
 
-with open('token.txt') as f:
-    TOKEN = f.readline()
+#with open('token.txt') as f:
+    #TOKEN = f.readline()
 token = os.environ.get('TOKEN')
 #keep_alive()
 client.run(token)

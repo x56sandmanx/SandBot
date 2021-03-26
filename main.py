@@ -33,7 +33,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.3"))
+                                 activity=discord.Game("-help | SandBot v1.4"))
     print('We have logged in as {0.user}'.format(client))
 
 

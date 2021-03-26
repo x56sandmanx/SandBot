@@ -74,6 +74,44 @@ async def beg(ctx):
         json.dump(users,f)
 
 
+@client.command()
+async def withdraw(ctx,amount=None):
+    await open_account(ctx.author)
+    if amount == None:
+        await ctx.sned("Please enter the amount")
+        return
+    bal = await updateBank(ctx.author)
+
+    amount = int(amount)
+    if amount>bal[1]:
+        await ctx.send("You don't have that much money!")
+        return
+    if amount<0:
+        await ctx.send("Amount must be positive!")
+        return
+    await updateBank(ctx.author,amount)
+    await updateBank(ctx.author,-1*amount,"bank")
+    await ctx.send(f"You withdrew {amount} dollars!")
+
+@client.command()
+async def deposit(ctx,amount=None):
+    await open_account(ctx.author)
+    if amount == None:
+        await ctx.sned("Please enter the amount")
+        return
+    bal = await updateBank(ctx.author)
+
+    amount = int(amount)
+    if amount>bal[0]:
+        await ctx.send("You don't have that much money!")
+        return
+    if amount<0:
+        await ctx.send("Amount must be positive!")
+        return
+    await updateBank(ctx.author,-1*amount)
+    await updateBank(ctx.author,amount,"bank")
+    await ctx.send(f"You deposited {amount} dollars!")
+
 async def open_account(user):
     users = await getBankData()
 
@@ -93,6 +131,16 @@ async def getBankData():
         users = json.load(f)
 
     return users
+
+async def updateBank(user,change=0,mode="wallet"):
+    users = await getBankData()
+
+    users[str(user.id)][mode] += change
+
+    with open("bank.json","w") as f:
+        json.dump(users,f)
+    bal = [users[str(user.id)]["wallet"],users[str(user.id)]["bank"]]
+    return bal
 
 @client.event
 async def on_command_error(ctx, exc):

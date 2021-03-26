@@ -122,8 +122,7 @@ async def shop(ctx):
         name = item["name"]
         price = item["price"]
         description = item["description"]
-
-        em.add_field(name = name, value = f"${price} | {description")
+        em.add_field(name = name, value = f"${price} | {description}")
 
     await ctx.send(embed=em)
 
@@ -189,7 +188,7 @@ async def buy_this(user, item_name,amount):
             n=thing["item"]
             if n==item_name:
                 old_amt = thing["amount"]
-                new-amt = old_amt + amount
+                new_amt = old_amt + amount
                 users[str(user.id)]["bag"][index]["amount"] = new_amt
                 t=1
                 break

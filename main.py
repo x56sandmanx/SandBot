@@ -17,6 +17,10 @@ mainshop = [{"name":"Watch","price":100,"description":"A watch"},
             {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
 
 
+mainshop = [{"name":"Watch","price":100,"description":"A watch"},
+            {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
+            {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
+
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
@@ -35,7 +39,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.3"))
+                                 activity=discord.Game("-help | SandBot v1.4"))
     print('We have logged in as {0.user}'.format(client))
 
 
@@ -209,6 +213,137 @@ async def buy_this(user, item_name,amount):
     return [True,"Worked"]
 
 
+@client.command()
+async def withdraw(ctx,amount=None):
+    await open_account(ctx.author)
+    if amount == None:
+        await ctx.sned("Please enter the amount")
+        return
+    bal = await updateBank(ctx.author)
+
+    amount = int(amount)
+    if amount>bal[1]:
+        await ctx.send("You don't have that much money!")
+        return
+    if amount<0:
+        await ctx.send("Amount must be positive!")
+        return
+    await updateBank(ctx.author,amount)
+    await updateBank(ctx.author,-1*amount,"bank")
+    await ctx.send(f"You withdrew {amount} dollars!")
+
+@client.command()
+async def deposit(ctx,amount=None):
+    await open_account(ctx.author)
+    if amount == None:
+        await ctx.sned("Please enter the amount")
+        return
+    bal = await updateBank(ctx.author)
+
+    amount = int(amount)
+    if amount>bal[0]:
+        await ctx.send("You don't have that much money!")
+        return
+    if amount<0:
+        await ctx.send("Amount must be positive!")
+        return
+    await updateBank(ctx.author,-1*amount)
+    await updateBank(ctx.author,amount,"bank")
+    await ctx.send(f"You deposited {amount} dollars!")
+
+@client.command()
+async def shop(ctx):
+    em = discord.Embed(title = "The Sand Shop")
+
+    for item in mainshop:
+        name = item["name"]
+        price = item["price"]
+        description = item["description"]
+        em.add_field(name = name, value = f"${price} | {description}", inline=False)
+
+    await ctx.send(embed=em)
+
+@client.command()
+async def buy(ctx, item, amount=1):
+    await open_account(ctx.author)
+
+    res = await buy_this(ctx.author,item,amount)
+
+    if not res[0]:
+        if res[1]==1:
+            await ctx.send("That object isn't there!")
+            return
+        if res[1]==2:
+            await ctx.send(f"You don't have enough money to buy {amount}")
+            return
+
+    await ctx.send(f"You just bought {amount} {item}")
+
+@client.command()
+async def bag(ctx):
+    await open_account(ctx.author)
+    user = ctx.author
+    users = await getBankData()
+
+    try:
+        bag = users[str(user.id)]["bag"]
+    except:
+        bag=[]
+
+    em = discord.Embed(title="Bag")
+    for item in bag:
+        name = item["item"]
+        amount = item["amount"]
+
+        em.add_field(name=name,value=amount)
+    
+    await ctx.send(embed=em)
+
+async def buy_this(user, item_name,amount):
+    item_name = item_name.lower()
+    name_ = None
+    for item in mainshop:
+        name = item["name"].lower()
+        if name==item_name:
+            name_=name
+            price=item["price"]
+            break
+
+    if name_==None:
+        return [False, 1]
+
+    cost = price*amount
+    users = await getBankData()
+    bal = await updateBank(user)
+    if bal[0]<cost:
+        return [False,2]
+
+    try:
+        index=0
+        t=None
+        for thing in users[str(user.id)]["bag"]:
+            n=thing["item"]
+            if n==item_name:
+                old_amt = thing["amount"]
+                new_amt = old_amt + amount
+                users[str(user.id)]["bag"][index]["amount"] = new_amt
+                t=1
+                break
+            index+=1
+        if t == None:
+            obj = {"item":item_name,"amount":amount}
+            users[str(user.id)]["bag"].append(obj)
+    except:
+        obj = {"item":item_name,"amount":amount}
+        users[str(user.id)]["bag"]=[obj]
+
+    with open("bank.json","w") as f:
+        json.dump(users,f)
+
+    await updateBank(user,cost*-1,"wallet")
+
+    return [True,"Worked"]
+
 async def open_account(user):
     users = await getBankData()
 
@@ -238,7 +373,6 @@ async def updateBank(user,change=0,mode="wallet"):
         json.dump(users,f)
     bal = [users[str(user.id)]["wallet"],users[str(user.id)]["bank"]]
     return bal
-
 
 @client.event
 async def on_command_error(ctx, exc):

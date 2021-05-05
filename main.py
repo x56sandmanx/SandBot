@@ -13,7 +13,9 @@ client = commands.Bot(intents=intents, command_prefix='-')
 client.remove_command('help')
 
 
-mainshop = [{"name":"Watch","price":100,"description":"A watch"}]
+mainshop = [{"name":"Watch","price":100,"description":"A watch"},
+            {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
+            {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
 
 @client.command()
 async def load(ctx, extension):
@@ -116,13 +118,13 @@ async def deposit(ctx,amount=None):
 
 @client.command()
 async def shop(ctx):
-    em = discord.Embed(title = "Shop")
+    em = discord.Embed(title = "The Sand Shop")
 
     for item in mainshop:
         name = item["name"]
         price = item["price"]
         description = item["description"]
-        em.add_field(name = name, value = f"${price} | {description}")
+        em.add_field(name = name, value = f"${price} | {description}", inline=False)
 
     await ctx.send(embed=em)
 
@@ -245,8 +247,6 @@ async def on_command_error(ctx, exc):
         await ctx.send("You do not have permission to do that.")
 
 
-#with open('token.txt') as f:
- #   TOKEN = f.readline()
+
 token = os.environ.get('TOKEN')
-#keep_alive()
 client.run(token)

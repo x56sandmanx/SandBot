@@ -15,11 +15,6 @@ mainshop = [{"name":"Watch","price":100,"description":"A watch"},
             {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
             {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
 
-
-mainshop = [{"name":"Watch","price":100,"description":"A watch"},
-            {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
-            {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
-
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')

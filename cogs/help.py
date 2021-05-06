@@ -9,7 +9,6 @@ class Help(commands.Cog):
   async def help(self, ctx):
     embed=discord.Embed(title="Help", color=discord.Color.blue())
     embed.add_field(name="-serverInfo", value="Shows server info", inline=False)
-    embed.add_field(name="-meme", value="displays memes from reddit", inline=False)
     embed.add_field(name="-rps", value="Play rock, paper, scissors with the Bot", inline=False)
     embed.add_field(name="-add [value1] [value2]", value="add two numbers", inline=False)
     embed.add_field(name="-sub [value1] [value2]", value="subtract two numbers", inline=False)

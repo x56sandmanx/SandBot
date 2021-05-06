@@ -376,7 +376,7 @@ async def updateBank(user,change=0,mode="wallet"):
 @client.event
 async def on_command_error(ctx, exc):
     if isinstance(exc, CommandOnCooldown):
-        await ctx.send(f"That command i on cooldown. Try again in {exc.retry_after//60+1:,.2f} minutes")
+        await ctx.send(f"That command is on cooldown. Try again in {exc.retry_after//60+1:,.2f} minutes")
     elif isinstance(exc, Forbidden):
         await ctx.send("You do not have permission to do that.")
 

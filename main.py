@@ -6,7 +6,6 @@ from discord.errors import Forbidden
 import json
 import random
 import os
-#from keep_alive import keep_alive
 
 intents = discord.Intents().all()
 client = commands.Bot(intents=intents, command_prefix='-')

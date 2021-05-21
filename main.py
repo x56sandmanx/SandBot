@@ -3,6 +3,7 @@ import os
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 from discord.errors import Forbidden
+from discord.utils import get
 import json
 import random
 import os
@@ -36,7 +37,6 @@ async def on_ready():
                                  activity=discord.Game("-help | SandBot v1.4"))
     print('We have logged in as {0.user}'.format(client))
 
-
 @client.event
 async def on_member_join(member):
     channel = discord.utils.get(member.guild.channels, name="welcome")
@@ -45,6 +45,27 @@ async def on_member_join(member):
     )
     role = discord.utils.get(member.guild.roles, name="Sandling")
     await member.add_roles(role)
+
+@client.command()
+async def joblist(ctx):
+    em=discord.Embed(title="The Sand Kingdom Joblist", color=discord.Color.blue())
+    em.add_field(name="Sand Gatherer",value="Gather grains of sand | PAY: $50",inline=True)
+    em.add_field(name="SandTuber",value="Upload videos of the Sand Kingdom and make money | PAY: $100",inline=True)
+    await ctx.send(embed=em)
+
+@client.command()
+async def job(ctx):
+    await ctx.send("What job would you like to apply for?")
+    def check(msg):
+        return msg.author == ctx.author and msg.channel == ctx.channel
+    
+    user_input = await client.wait_for("message",check=check)
+    if(user_input.content=="Sand Gatherer"):
+        await ctx.send("Applied for Sand Gatherer!")
+    if(user_input.content=="SandTuber"):
+        await ctx.send("Applied for SandTuber!")
+    else:
+        await ctx.send("Input valid job!")
 
 @client.command()
 async def bal(ctx):
@@ -79,7 +100,7 @@ async def beg(ctx):
 async def withdraw(ctx,amount=None):
     await open_account(ctx.author)
     if amount == None:
-        await ctx.sned("Please enter the amount")
+        await ctx.send("Please enter the amount")
         return
     bal = await updateBank(ctx.author)
 
@@ -98,7 +119,7 @@ async def withdraw(ctx,amount=None):
 async def deposit(ctx,amount=None):
     await open_account(ctx.author)
     if amount == None:
-        await ctx.sned("Please enter the amount")
+        await ctx.send("Please enter the amount")
         return
     bal = await updateBank(ctx.author)
 
@@ -243,6 +264,33 @@ async def on_command_error(ctx, exc):
     elif isinstance(exc, Forbidden):
         await ctx.send("You do not have permission to do that.")
 
+@client.event
+async def on_raw_reaction_add(payload):
+    message_id = payload.message_id
+    if message_id == 845362897592778813:
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+
+        if payload.emoji.name == 'nsfw':
+            role = discord.utils.get(guild.roles, name='NSFW')
+        elif payload.emoji.name =='boy':
+            role = discord.utils.get(guild.roles, name='13-16')
+        elif payload.emoji.name=='teen':
+            role = discord.utils.get(guild.roles, name='17-19')
+        elif payload.emoji.name=='man':
+            role = discord.utils.get(guild.roles, name='20+')
+        elif payload.emoji.name=='male_sign':
+            role = discord.utils.get(guild.roles, name='Male')
+        elif payload.emoji.name=='female_sign':
+            role = discord.utils.get(guild.roles, name='Female')
+        else:
+            role = discord.utils.get(guild.roles, name=payload.emoji.name)
+
+        if role is not None:
+            member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+            if member is not None:
+                await member.add_roles(role)
+
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.cKG1iXbpVfD3Fg40MCDrb2MKudc')

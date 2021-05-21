@@ -41,7 +41,7 @@ async def on_ready():
 async def on_member_join(member):
     channel = discord.utils.get(member.guild.channels, name="welcome")
     await channel.send(
-        f"Welcome to **{member.guild.name}** {member.mention}! Head over to <#797282653946642474> to be cool!"
+        f"Welcome to **{member.guild.name}** {member.mention}! Head over to <#797282653946642474> to be cool! Also go to <#845362775974477854> to get your roles!"
     )
     role = discord.utils.get(member.guild.roles, name="Sandling")
     await member.add_roles(role)

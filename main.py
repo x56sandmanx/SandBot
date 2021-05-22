@@ -39,7 +39,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    channel = discord.utils.get(member.guild.channels, name="welcome")
+    channel = discord.utils.get(member.guild.channels, name="welcome👋")
     await channel.send(
         f"Welcome to **{member.guild.name}** {member.mention}! Head over to <#797282653946642474> to be cool! Also go to <#845362775974477854> to get your roles!"
     )

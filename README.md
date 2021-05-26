@@ -20,4 +20,9 @@ Commands:
 -bal
 -beg
 
-More commands to come
+Features:
+Has a welcome message
+Has auto roles
+
+Currently Working:
+A fully flegded shop and a work command that allows users to apply for jobs for pay.

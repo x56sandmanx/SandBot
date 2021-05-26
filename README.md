@@ -21,8 +21,8 @@ Commands:
 -beg
 
 Features:
-Has a welcome message
-Has auto roles
+Has a welcome message,
+has auto roles
 
 Currently Working:
 A fully flegded shop and a work command that allows users to apply for jobs for pay.

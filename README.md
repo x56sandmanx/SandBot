@@ -2,7 +2,7 @@
 SandBot v1.5 for Discord
 
 This bot is for my server on my discord server!
-Some of the commands are the following\
+Some of the commands are the following
 
 Prefix: -
 

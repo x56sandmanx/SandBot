@@ -1,5 +1,5 @@
 # Sand_Bot
-SandBot v1.5 for Discord
+SandBot v1.6 for Discord
 
 This bot is for my server on my discord server!
 Some of the commands are the following

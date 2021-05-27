@@ -34,7 +34,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.5"))
+                                 activity=discord.Game("-help | SandBot v1.6"))
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
@@ -320,4 +320,4 @@ async def on_raw_reaction_remove(payload):
 
 
 token = os.environ.get('TOKEN')
-client.run('test')
+client.run(token)

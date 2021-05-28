@@ -9,11 +9,12 @@ class Poll(commands.Cog):
         self.polls=[]
 
     @commands.command()
+    @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
     async def poll(self, ctx, hours: int, question: str, *options):
         if len(options) > 10:
             await ctx.send("You can only supply a maximum of 10 options!")
         else:
-            embed = discord.Embed(title="Poll", description=question, colour=ctx.author.colour, timestamp=datetime.utcnow())
+            embed = discord.Embed(title="Poll", description=question, colour=ctx.author.colour, timestamp=datetime.now())
             fields =[("Options", "\n".join([f"{numbers[idx]} {option}" for idx, option in enumerate(options)]), False),
                     ("Instructions", "React to cast a vote!", False)]
 

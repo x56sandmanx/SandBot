@@ -22,7 +22,7 @@ class Giveaway(commands.Cog):
         await message.add_reaction("✅")
 
         self.giveaways.append((message.channel.id, message.id))
-        self.bot.scheduler.add_job(self.complete_giveaway, "date", run_date=datetime.now()+timedelta(seconds=mins), args=[message.channel.id, message.id])
+        self.client.scheduler.add_job(self.complete_giveaway, "date", run_date=datetime.now()+timedelta(seconds=mins), args=[message.channel.id, message.id])
 
     async def complete_giveaway(self, channel_id, message_id):
         message = await self.client.get_channel(channel_id).fetch_message(message_id)

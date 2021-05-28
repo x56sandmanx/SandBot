@@ -14,9 +14,9 @@ class Poll(commands.Cog):
         if len(options) > 10:
             await ctx.send("You can only supply a maximum of 10 options!")
         else:
-            embed = discord.Embed(title="Poll", description=question, colour=ctx.author.colour, timestamp=datetime.now())
+            embed = discord.Embed(title="Poll", description=question, colour=ctx.author.colour, timestamp=datetime.utcnow())
             fields =[("Options", "\n".join([f"{numbers[idx]} {option}" for idx, option in enumerate(options)]), False),
-                    ("Instructions", "React to cast a vote!", False)]
+                    ("Instructions", "React to cast a vote!", False), ("End time", f"{datetime.now()+timedelta(seconds=hours)} EST", False)]
 
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
@@ -28,7 +28,7 @@ class Poll(commands.Cog):
 
             self.polls.append((message.channel.id, message.id))
 
-            self.bot.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=hours), args=[message.channel.id, message.id])
+            self.client.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now()+timedelta(seconds=hours), args=[message.channel.id, message.id])
 
     async def complete_poll(self, channel_id, message_id):
         message = await self.client.get_channel(channel_id).fetch_message(message_id)

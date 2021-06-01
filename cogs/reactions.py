@@ -5,7 +5,6 @@ class Reaction(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         message_id = payload.message_id
         if message_id == 845362897592778813:
@@ -32,7 +31,6 @@ class Reaction(commands.Cog):
                 if member is not None:
                     await member.add_roles(role)
 
-    @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
         message_id = payload.message_id
         if message_id == 845362897592778813:

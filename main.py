@@ -320,4 +320,4 @@ async def on_raw_reaction_remove(payload):
 
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.1Ypv8mp0kfI5LWo3W7rSbOduY4o')

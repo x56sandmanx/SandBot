@@ -3,7 +3,6 @@ from discord.ext import commands
 from datetime import datetime, timedelta
 from random import choice
 
-numbers = ("1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟")
 class Giveaway(commands.Cog):
     def __init__(self, client):
         self.client = client

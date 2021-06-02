@@ -34,7 +34,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.6"))
+                                 activity=discord.Game("-help | SandBot v1.6.2"))
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
@@ -265,4 +265,4 @@ async def on_command_error(ctx, exc):
         await ctx.send("You do not have permission to do that.")
 
 token = os.environ.get('TOKEN')
-client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.1Ypv8mp0kfI5LWo3W7rSbOduY4o')
+client.run(token)

@@ -8,7 +8,7 @@ class Ban(commands.Cog):
   @commands.command()
   @commands.has_permissions(ban_members=True)
   @commands.has_any_role("SandKnight (Admin)", "Sandman")
-  async def ban(self, ctx, member : discord.Member, *, reason=None):
+  async def ban(self, ctx, member : discord.Member, *, reason=None, error):
     await member.ban(reason=reason)
     channel = discord.utils.get(member.guild.channels, name="logs📚")
     embed=discord.Embed(title="Ban", color=discord.Color.blue())

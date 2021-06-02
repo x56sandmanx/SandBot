@@ -30,7 +30,7 @@ class Reaction(commands.Cog):
             if role is not None:
                 member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
                 if member is not None:
-                    await member.add_roles(roles)
+                    await member.add_roles(role)
         
         if message_id == 849444754390646814:
             guild_id = payload.guild_id

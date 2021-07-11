@@ -24,6 +24,16 @@ class Reaction(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Male')
             elif payload.emoji.name=='female_sign':
                 role = discord.utils.get(guild.roles, name='Female')
+            elif payload.emoji.name=='apexlogo':
+                role = discord.utils.get(guild.roles, name="Apex")
+            elif payload.emoji.name=='warzonelogo':
+                role = discord.utils.get(guild.roles, name="Warzone")
+            elif payload.emoji.name=='halologo':
+                role = discord.utils.get(guild.roles, name="Halo")
+            elif payload.emoji.name=='minecraftlogo':
+                role = discord.utils.get(guild.roles, name="Minecraft")
+            elif payload.emoji.name=='robloxlogo':
+                role = discord.utils.get(guild.roles, name="Roblox")
             else:
                 role = discord.utils.get(guild.roles, name=payload.emoji.name)
 
@@ -74,6 +84,16 @@ class Reaction(commands.Cog):
                 role = discord.utils.get(guild.roles, name='Male')
             elif payload.emoji.name=='female_sign':
                 role = discord.utils.get(guild.roles, name='Female')
+            elif payload.emoji.name=='apexlogo':
+                role = discord.utils.get(guild.roles, name="Apex")
+            elif payload.emoji.name=='warzonelogo':
+                role = discord.utils.get(guild.roles, name="Warzone")
+            elif payload.emoji.name=='halologo':
+                role = discord.utils.get(guild.roles, name="Halo")
+            elif payload.emoji.name=='minecraftlogo':
+                role = discord.utils.get(guild.roles, name="Minecraft")
+            elif payload.emoji.name=='robloxlogo':
+                role = discord.utils.get(guild.roles, name="Roblox")
             else:
                 role = discord.utils.get(guild.roles, name=payload.emoji.name)
 

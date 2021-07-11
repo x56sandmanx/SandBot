@@ -265,4 +265,4 @@ async def on_command_error(ctx, exc):
         await ctx.send("You do not have permission to do that.")
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

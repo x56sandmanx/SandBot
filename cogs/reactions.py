@@ -34,6 +34,8 @@ class Reaction(commands.Cog):
                 role = discord.utils.get(guild.roles, name="Minecraft")
             elif payload.emoji.name=='robloxlogo':
                 role = discord.utils.get(guild.roles, name="Roblox")
+            elif payload.emoji.name=='coc':
+                role = discord.utils.get(guild.roles, name="Clash Of Clans")
             else:
                 role = discord.utils.get(guild.roles, name=payload.emoji.name)
 
@@ -94,6 +96,8 @@ class Reaction(commands.Cog):
                 role = discord.utils.get(guild.roles, name="Minecraft")
             elif payload.emoji.name=='robloxlogo':
                 role = discord.utils.get(guild.roles, name="Roblox")
+            elif payload.emoji.name=='coc':
+                role = discord.utils.get(guild.roles, name="Clash Of Clans")
             else:
                 role = discord.utils.get(guild.roles, name=payload.emoji.name)
 

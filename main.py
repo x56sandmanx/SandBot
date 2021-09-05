@@ -15,6 +15,7 @@ client.remove_command('help')
 mainshop = [{"name":"Watch","price":100,"description":"A watch"},
             {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
             {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
+illegal_words = ["nigger", "fag", "faggot"]
 
 @client.command()
 async def load(ctx, extension):
@@ -34,7 +35,7 @@ for filename in os.listdir('./cogs'):
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online,
-                                 activity=discord.Game("-help | SandBot v1.6.2"))
+                                 activity=discord.Game("-help | SandBot v1.6.3"))
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
@@ -45,6 +46,28 @@ async def on_member_join(member):
     )
     role = discord.utils.get(member.guild.roles, name="Sandling")
     await member.add_roles(role)
+
+@client.event
+async def on_message(message):
+    if any(word in message.content for word in illegal_words):
+        await message.delete()
+    else:
+        await client.process_commands(message)
+    
+@client.event
+async def on_message_delete(message):
+    embed=discord.Embed(title=message.author.name, description=f"Message deleted in **{message.channel}**", color=discord.Color.blue())
+    embed.add_field(name = message.content, value="Deleted Message", inline="True")
+    channel=client.get_channel(799074188039946250)
+    await channel.send(embed=embed)
+
+@client.event
+async def on_message_edit(message_before, message_after):
+    embed=discord.Embed(title=message_before.author.name, description=f"Message changed in **{message_before.channel}**", color=discord.Color.blue())
+    embed.add_field(name=message_before.content, value="The message before",inline="True")
+    embed.add_field(name=message_after.content, value="The message after",inline="True")
+    channel=client.get_channel(799074188039946250)
+    await channel.send(embed=embed)
 
 @client.command()
 async def joblist(ctx):
@@ -265,4 +288,4 @@ async def on_command_error(ctx, exc):
         await ctx.send("You do not have permission to do that.")
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

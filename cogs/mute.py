@@ -7,7 +7,7 @@ class Mute(commands.Cog):
     self.client = client
 
   @commands.command()
-  @commands.has_permissions(manage_messages=True)
+  @commands.has_any_role("SandKnight (Admin)", "Sandman", "SandGuard (Mod)")
   async def mute(self, ctx, member: discord.Member, *, reason=None):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     await member.add_roles(role)
@@ -20,7 +20,7 @@ class Mute(commands.Cog):
     await channel.send(embed=embed)
 
   @commands.command()
-  @commands.has_permissions(manage_messages=True)
+  @commands.has_any_role("SandKnight (Admin)", "Sandman", "SandGuard (Mod)")
   async def tempmute(self, ctx, member : discord.Member, time: int, d, *, reason=None):
     guild = ctx.guild
     for role in guild.roles:
@@ -53,7 +53,7 @@ class Mute(commands.Cog):
         return
 
   @commands.command()
-  @commands.has_permissions(manage_messages=True)
+  @commands.has_any_role("SandKnight (Admin)", "Sandman", "SandGuard (Mod)")
   async def unmute(self, ctx, member: discord.Member, *, reason=None):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     await member.remove_roles(role)

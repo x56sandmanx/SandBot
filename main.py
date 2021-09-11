@@ -15,7 +15,7 @@ client.remove_command('help')
 mainshop = [{"name":"Watch","price":100,"description":"A watch"},
             {"name":"Sandgun","price":1000,"description":"A tiny sandgun that probably couldn't even kill a fly..."},
             {"name":"Sand Dollar","price":99999999,"description":"A Sand Dollar.... that costs more than a dollar..."}]
-illegal_words = ["nigger", "fag", "faggot", "retard"]
+illegal_words = ["nigger", "nigga", "fag", "faggot", "retard"]
 
 @client.command()
 async def load(ctx, extension):
@@ -49,7 +49,7 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    if any(word in message.content for word in illegal_words):
+    if any(word in message.content.lower().replace(' ', '') for word in illegal_words):
         await message.delete()
     else:
         await client.process_commands(message)
@@ -288,4 +288,4 @@ async def on_command_error(ctx, exc):
         await ctx.send("You do not have permission to do that.")
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

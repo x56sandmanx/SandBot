@@ -6,9 +6,9 @@ class Warn(commands.Cog):
     self.client = client
 
   @commands.command()
-  @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
+  @commands.has_any_role("SandGuard (Mod)", "SandKnight (Admin)", "Sandman")
   async def warn(self, ctx, member : discord.Member, *, reason=None):
-    channel = discord.utils.get(member.guild.channels, name="logs📚")
+    channel = discord.utils.get(member.guild.channels, name="command-logs📚")
     embed=discord.Embed(title="Warn", color=discord.Color.blue())
     embed.set_thumbnail(url=ctx.author.avatar_url)
     embed.add_field(name="User", value=member.mention, inline=True)

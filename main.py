@@ -1,11 +1,14 @@
 import discord
 import os
+from discord import member
 from discord.ext import commands
 from discord.ext.commands import cooldown, BucketType, CommandOnCooldown
 from discord.ext.commands import has_permissions, MissingPermissions
 from discord.errors import Forbidden
 from discord.utils import get
 from datetime import datetime
+from discord import Embed, Member
+from typing import Optional
 import json
 import random
 import os
@@ -83,8 +86,9 @@ with open('reports.json', encoding='utf-8') as f:
     report['users'] = []
 
 @client.command(pass_context = True)
-@has_permissions(manage_roles=True, ban_members=True)
-async def warn(ctx,user:discord.User,*reason:str):
+@commands.has_any_role("SandGuard (Mod)", "SandKnight (Admin)", "Sandman")
+async def warn(ctx,user:discord.User,*reason:str,target: Optional[Member]):
+    target = target or ctx.author
     if not reason:
         await ctx.send("Please provide a reason")
         return
@@ -103,18 +107,19 @@ async def warn(ctx,user:discord.User,*reason:str):
 
     channel = discord.utils.get(user.guild.channels, name="logs📚")
     embed=discord.Embed(title="Warn", color=discord.Color.blue(),timestamp=datetime.utcnow())
-    embed.set_thumbnail(url=ctx.author.avatar_url)
+    embed.set_thumbnail(url=target.avatar_url)
     embed.add_field(name="User", value=user.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
     embed.add_field(name="Reason", value=reason, inline=True)
     await channel.send(embed=embed)
 
 @client.command(pass_context = True)
-async def warnings(ctx,user:discord.User):
+async def warnings(ctx,user:discord.User,target: Optional[Member]):
+    target = target or ctx.author
     for current_user in report['users']:
         if user.name == current_user['name']:
             embed=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=target.avatar_url)
             embed.add_field(name="User", value=user.mention, inline=True)
             embed.add_field(name="# of warns", value=len(current_user['reasons']), inline=True)
             embed.add_field(name="Reasons", value=','.join(current_user['reasons']), inline=True)
@@ -122,8 +127,8 @@ async def warnings(ctx,user:discord.User):
             break
     else:
         em=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
-        em.set_thumbnail(url=ctx.author.avatar_url)
-        em.add_field(name="User", value=user.mention, inline=True)
+        em.set_thumbnail(url=target.avatar_url)
+        em.add_field(name="User", value=member.mention, inline=True)
         em.add_field(name="# of warns", value=0, inline=True)
         await ctx.send(embed=em)
 
@@ -134,4 +139,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

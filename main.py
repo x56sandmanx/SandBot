@@ -101,7 +101,7 @@ async def warn(ctx,user:discord.User,*reason:str):
     with open('reports.json','w+') as f:
         json.dump(report,f)
 
-    channel = discord.utils.get(user.guild.channels, name="logs📚")
+    channel = client.get_channel(886329173877080144)
     embed=discord.Embed(title="Warn", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.set_thumbnail(url=user.avatar_url)
     embed.add_field(name="User", value=user.mention, inline=True)
@@ -134,4 +134,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')
+client.run(token)

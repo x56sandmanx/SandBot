@@ -55,14 +55,14 @@ async def on_message(message):
     
 @client.event
 async def on_message_delete(message):
-    embed=discord.Embed(title=message.author.name, description=f"Message deleted in **{message.channel}**", color=discord.Color.blue())
+    embed=discord.Embed(title=message.author.name, description=f"Message deleted in **{message.channel}**", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.add_field(name = message.content, value="Deleted Message", inline="True")
     channel=client.get_channel(799074188039946250)
     await channel.send(embed=embed)
 
 @client.event
 async def on_message_edit(message_before, message_after):
-    embed=discord.Embed(title=message_before.author.name, description=f"Message changed in **{message_before.channel}**", color=discord.Color.blue())
+    embed=discord.Embed(title=message_before.author.name, description=f"Message changed in **{message_before.channel}**", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.add_field(name=message_before.content, value="The message before",inline="True")
     embed.add_field(name=message_after.content, value="The message after",inline="True")
     channel=client.get_channel(799074188039946250)

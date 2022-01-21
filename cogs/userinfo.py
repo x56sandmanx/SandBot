@@ -8,17 +8,17 @@ class Userinfo(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
-  async def userInfo(self, ctx, target: Optional[Member]):
-	  target = target or ctx.author
+@commands.command()
+async def userInfo(self, ctx, target: Optional[Member]):
+	target = target or ctx.author
 
-	  embed = Embed(title="User information",
+	embed = Embed(title="User information",
 					  colour=target.colour,
 					  timestamp=datetime.utcnow())
 
-	  embed.set_thumbnail(url=target.avatar_url)
+	embed.set_thumbnail(url=target.avatar_url)
 
-	  fields = [("Name", str(target), True),
+	fields = [("Name", str(target), True),
 				  ("ID", target.id, True),
 				  ("Bot?", target.bot, True),
 				  ("Top role", target.top_role.mention, True),
@@ -28,10 +28,9 @@ class Userinfo(commands.Cog):
 				  ("Joined on", target.joined_at.strftime("%m/%d/%Y"), True),
 				  ("Boosted", bool(target.premium_since), True)]
 
-	  for name, value, inline in fields:
-		  embed.add_field(name=name, value=value, inline=inline)
-
-	  await ctx.send(embed=embed)
+	for name, value, inline in fields:
+		embed.add_field(name=name, value=value, inline=inline)
+		await ctx.send(embed=embed)
 
 def setup(client):
   client.add_cog(Userinfo(client))

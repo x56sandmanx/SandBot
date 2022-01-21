@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from datetime import datetime
 
 class Kick(commands.Cog):
   def __init__(self, client):
@@ -11,7 +12,7 @@ class Kick(commands.Cog):
   async def kick(self, ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
     channel = discord.utils.get(member.guild.channels, name="logs📚")
-    embed=discord.Embed(title="Kick", color=discord.Color.blue())
+    embed=discord.Embed(title="Kick", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.set_thumbnail(url=ctx.author.avatar_url)
     embed.add_field(name="User", value=member.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)

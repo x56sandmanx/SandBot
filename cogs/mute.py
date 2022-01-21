@@ -1,5 +1,6 @@
 import discord
 import asyncio
+from datetime import datetime
 from discord.ext import commands
 
 class Mute(commands.Cog):
@@ -12,7 +13,7 @@ class Mute(commands.Cog):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     await member.add_roles(role)
     channel = discord.utils.get(member.guild.channels, name="command-logs📚")
-    embed=discord.Embed(title="Mute", color=discord.Color.blue())
+    embed=discord.Embed(title="Mute", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.set_thumbnail(url=ctx.author.avatar_url)
     embed.add_field(name="User", value=member.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
@@ -27,7 +28,7 @@ class Mute(commands.Cog):
       if role.name=="Muted":
         await member.add_roles(role)
         channel = discord.utils.get(member.guild.channels, name="command-logs📚")
-        embed=discord.Embed(title="Temp Mute", color=discord.Color.blue())
+        embed=discord.Embed(title="Temp Mute", color=discord.Color.blue(),timestamp=datetime.utcnow())
         embed.set_thumbnail(url=ctx.author.avatar_url)
         embed.add_field(name="User", value=member.mention, inline=True)
         embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
@@ -58,7 +59,7 @@ class Mute(commands.Cog):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     await member.remove_roles(role)
     channel = discord.utils.get(member.guild.channels, name="command-logs📚")
-    embed=discord.Embed(title="Unmute", color=discord.Color.blue())
+    embed=discord.Embed(title="Unmute", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.set_thumbnail(url=ctx.author.avatar_url)
     embed.add_field(name="User", value=member.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)

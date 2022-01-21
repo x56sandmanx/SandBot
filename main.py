@@ -38,7 +38,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
-async def on_member_join(member):
+async def on_member_join(ctx,member:discord.Member):
     channel = discord.utils.get(member.guild.channels, name="welcome👋")
     await channel.send(
         f"Welcome to **{member.guild.name}** {member.mention}! Head over to <#797282653946642474> to be cool! Also go to <#845362775974477854> to get your roles!"
@@ -134,4 +134,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

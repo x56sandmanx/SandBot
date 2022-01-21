@@ -102,7 +102,7 @@ async def warn(ctx,user:discord.User,*reason:str):
         json.dump(report,f)
 
     channel = discord.utils.get(user.guild.channels, name="logs📚")
-    embed=discord.Embed(title="Kick", color=discord.Color.blue(),timestamp=datetime.utcnow())
+    embed=discord.Embed(title="Warn", color=discord.Color.blue(),timestamp=datetime.utcnow())
     embed.set_thumbnail(url=ctx.author.avatar_url)
     embed.add_field(name="User", value=user.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
@@ -111,18 +111,23 @@ async def warn(ctx,user:discord.User,*reason:str):
 
 @client.command(pass_context = True)
 async def warnings(ctx,user:discord.User):
-  for current_user in report['users']:
-    if user.name == current_user['name']:
+    for current_user in report['users']:
+        if user.name == current_user['name']:
+            embed=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
+            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.add_field(name="User", value=user.mention, inline=True)
+            embed.add_field(name="# of warns", value=len(current_user['reasons']), inline=True)
+            embed.add_field(name="Reasons", value=','.join(current_user['reasons']), inline=True)
+            await ctx.send(embed=embed)
+            break
+    else:
         embed=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
         embed.set_thumbnail(url=ctx.author.avatar_url)
         embed.add_field(name="User", value=user.mention, inline=True)
-        embed.add_field(name="# of warns", value=len(current_user['reasons']), inline=True)
-        embed.add_field(name="Reasons", value=','.join(current_user['reasons']), inline=True)
+        embed.add_field(name="# of warns", value=0, inline=True)
+        embed.add_field(name="Reasons", value="", inline=True)
         await ctx.send(embed=embed)
-        #await ctx.send(f"{user.name} has been reported {len(current_user['reasons'])} times: {','.join(current_user['reasons'])}")
-        break
-  else:
-    await ctx.send(f"{user.name} has never been reported")  
+        await ctx.send(f"{user.name} has never been reported")  
 
 @warn.error
 async def kick_error(error, ctx):
@@ -131,4 +136,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

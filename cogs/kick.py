@@ -10,6 +10,9 @@ class Kick(commands.Cog):
   @commands.has_permissions(kick_members=True)
   @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
   async def kick(self, ctx, member : discord.Member, *, reason=None):
+    if not reason:
+        await ctx.send("Please provide a reason")
+        return
     await member.kick(reason=reason)
     channel = discord.utils.get(member.guild.channels, name="logs📚")
     embed=discord.Embed(title="Kick", color=discord.Color.blue(),timestamp=datetime.utcnow())

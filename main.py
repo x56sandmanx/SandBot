@@ -86,7 +86,7 @@ with open('reports.json', encoding='utf-8') as f:
 @has_permissions(manage_roles=True, ban_members=True)
 async def warn(ctx,user:discord.User,*reason:str):
     if not reason:
-        await client.say("Please provide a reason")
+        await ctx.send("Please provide a reason")
         return
     reason = ' '.join(reason)
     for current_user in report['users']:
@@ -121,13 +121,11 @@ async def warnings(ctx,user:discord.User):
             await ctx.send(embed=embed)
             break
     else:
-        embed=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
-        embed.set_thumbnail(url=ctx.author.avatar_url)
-        embed.add_field(name="User", value=user.mention, inline=True)
-        embed.add_field(name="# of warns", value=0, inline=True)
-        embed.add_field(name="Reasons", value="", inline=True)
-        await ctx.send(embed=embed)
-        await ctx.send(f"{user.name} has never been reported")  
+        em=discord.Embed(title="Warnings", color=discord.Color.blue(), timestamp=datetime.utcnow())
+        em.set_thumbnail(url=ctx.author.avatar_url)
+        em.add_field(name="User", value=user.mention, inline=True)
+        em.add_field(name="# of warns", value=0, inline=True)
+        await ctx.send(embed=em)
 
 @warn.error
 async def kick_error(error, ctx):
@@ -136,4 +134,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')
+client.run(token)

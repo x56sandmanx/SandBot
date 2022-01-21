@@ -92,7 +92,7 @@ async def warn(ctx,user:discord.User,*reason:str):
     for current_user in report['users']:
         if current_user['name'] == user.name:
             current_user['reasons'].append(reason)
-        break
+        
     else:
         report['users'].append({
         'name':user.name,
@@ -134,4 +134,4 @@ async def kick_error(error, ctx):
       await client.send_message(ctx.message.channel, text)
 
 token = os.environ.get('TOKEN')
-client.run(token)
+client.run('ODE5NzI1ODQ4OTQ3OTgyNDQ2.YEqzMA.PMqLQGlgbfLoqczH7PhmgCzRSMk')

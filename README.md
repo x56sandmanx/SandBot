@@ -33,4 +33,4 @@ has auto roles,
 has color roles for boosters
 
 Currently working:
-A birthday command that allows the user to input their birthday intot he bot, and the bot will announce their birthday on the day they gave the bot
+A birthday command that allows the user to input their birthday into the bot, and the bot will announce their birthday on the day they gave the bot

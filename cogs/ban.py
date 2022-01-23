@@ -7,7 +7,6 @@ class Ban(commands.Cog):
 
   @commands.command()
   @commands.has_permissions(ban_members=True)
-  @commands.has_any_role("SandKnight (Admin)", "Sandman")
   async def ban(self, ctx, member : discord.Member, *, reason=None, error):
     await member.ban(reason=reason)
     channel = discord.utils.get(member.guild.channels, name="command-logs📚")

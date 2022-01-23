@@ -9,6 +9,7 @@ Prefix: -
 Commands:
 -help/help2
 -serverInfo
+-userInfo
 -rps
 -add
 -sub
@@ -16,14 +17,20 @@ Commands:
 -div
 -roll
 -kiss
--userInfo
--bal
--beg
+-warnings
+
+Admin Commands:
+-warn
+-tempmute
+-mute
+-kick
+-ban
+
 
 Features:
 Has a welcome message,
 has auto roles,
 has color roles for boosters
 
-Currently Working:
-A fully flegded shop and a work command that allows users to apply for jobs for pay.
+Currently working:
+A birthday command that allows the user to input their birthday intot he bot, and the bot will announce their birthday on the day they gave the bot

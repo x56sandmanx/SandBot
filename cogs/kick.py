@@ -15,7 +15,7 @@ class Kick(commands.Cog):
         return
     await member.kick(reason=reason)
     channel = discord.utils.get(member.guild.channels, name="logs📚")
-    embed=discord.Embed(title="Kick", color=discord.Color.blue(),timestamp=datetime.utcnow())
+    embed=discord.Embed(title="Kick", color=0xc2b280,timestamp=datetime.utcnow())
     embed.set_thumbnail(url=member.avatar_url)
     embed.add_field(name="User", value=member.mention, inline=True)
     embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)

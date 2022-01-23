@@ -8,7 +8,7 @@ class Help(commands.Cog):
 
   @commands.command()
   async def help(self, ctx):
-    embed=discord.Embed(title="Help", color=discord.Color.blue(),timestamp=datetime.utcnow())
+    embed=discord.Embed(title="Help", color=0xc2b280,timestamp=datetime.utcnow())
     embed.add_field(name="-serverInfo", value="Shows server info", inline=False)
     embed.add_field(name="-rps", value="Play rock, paper, scissors with the Bot", inline=False)
     embed.add_field(name="-add [value1] [value2]", value="add two numbers", inline=False)
@@ -21,7 +21,7 @@ class Help(commands.Cog):
   
   @commands.command()
   async def help2(self, ctx):
-    embed=discord.Embed(title="Help", color=discord.Color.blue(),timestamp=datetime.utcnow())
+    embed=discord.Embed(title="Help", color=0xc2b280,timestamp=datetime.utcnow())
     embed.add_field(name="-kiss [@person]", value="kiss someone in the server", inline=False)
     embed.add_field(name="-userInfo / -userInfo [@person]", value="get information on you or a user", inline=False)
     embed.add_field(name="-bal / -bal", value="check your balance", inline=False)
@@ -32,7 +32,7 @@ class Help(commands.Cog):
   @commands.command()
   @commands.has_any_role("Mod", "SandKnight (Admin)", "Sandman")
   async def adminhelp(self, ctx):
-    embed=discord.Embed(title="Admin Help", color=discord.Color.blue(),timestamp=datetime.utcnow())
+    embed=discord.Embed(title="Admin Help", color=0xc2b280,timestamp=datetime.utcnow())
     embed.add_field(name="-warn [@person] [reason]", value="Warn a user Ex: -warn @x56sandmanx spam",inline=False)
     embed.add_field(name="-tempmute [@person] [length] [time] [reason]", value="Temporarily mute a user Ex: -tempmute @x56sandmanx 10 s spam 5 times",inline=False)
     embed.add_field(name="-mute [@person] [reason]", value="Permanently mute a user Ex: -mute @x56sandmanx wall spam", inline=False)

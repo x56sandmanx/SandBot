@@ -50,23 +50,23 @@ async def on_member_join(member:discord.Member):
 
 @client.event
 async def on_message(message):
-    if any(word in message.content.lower().replace(' ', '') for word in illegal_words):
+    if any(word in message.content.lower() for word in illegal_words):
         await message.delete()
     else:
         await client.process_commands(message)
     
 @client.event
-async def on_message_delete(message,member:discord.Member):
+async def on_message_delete(message):
     embed=discord.Embed(title=message.author.name, description=f"Message deleted in **{message.channel}**", color=0xc2b280,timestamp=datetime.utcnow())
-    embed.set_thumbnail(url=member.avatar_url)
+    embed.set_thumbnail(url=message.author.avatar_url)
     embed.add_field(name = message.content, value="Deleted Message", inline="True")
     channel=client.get_channel(799074188039946250)
     await channel.send(embed=embed)
 
 @client.event
-async def on_message_edit(message_before, message_after,member:discord.Member):
-    embed=discord.Embed(title=message_before.author.name, description=f"Message changed in **{message_before.channel}**", color=0xc2b280,timestamp=datetime.utcnow())]
-    embed.set_thumbnail(url=member.avatar_url)
+async def on_message_edit(message_before, message_after):
+    embed=discord.Embed(title=message_before.author.name, description=f"Message changed in **{message_before.channel}**", color=0xc2b280,timestamp=datetime.utcnow())
+    embed.set_thumbnail(url=message_before.author.avatar_url)
     embed.add_field(name=message_before.content, value="The message before",inline="True")
     embed.add_field(name=message_after.content, value="The message after",inline="True")
     channel=client.get_channel(799074188039946250)

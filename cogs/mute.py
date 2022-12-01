@@ -22,8 +22,12 @@ class Mute(commands.Cog):
 
   @commands.command()
   @commands.has_any_role("SandKnight (Admin)", "Sandman", "SandGuard (Mod)")
-  async def tempmute(self, ctx, member : discord.Member, time: int, d, *, reason=None):
+  async def tempmute(self, ctx, member : discord.Member, time, *, reason=None):
     guild = ctx.guild
+    dayTime = time[-1]
+    numTime = time[:-1]
+    print(type(dayTime))
+    print(type(numTime))
     for role in guild.roles:
       if role.name=="Muted":
         await member.add_roles(role)
@@ -32,18 +36,18 @@ class Mute(commands.Cog):
         embed.set_thumbnail(url=member.avatar_url)
         embed.add_field(name="User", value=member.mention, inline=True)
         embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
-        embed.add_field(name="Time", value=f"{time}{d}", inline=False)
+        embed.add_field(name="Time", value=f"{time}", inline=False)
         embed.add_field(name="Reason", value=reason, inline=True)
         await channel.send(embed=embed)
 
-        if d =="s":
-          await asyncio.sleep(time)
-        if d == "m":
-          await asyncio.sleep(time*60)
-        if d == "h":
-          await asyncio.sleep(time*60*60)
-        if d == "d":
-          await asyncio.sleep(time*60*60*24)
+        if dayTime =="s":
+          await asyncio.sleep(int(numTime))
+        if dayTime == "m":
+          await asyncio.sleep(int(numTime)*60)
+        if dayTime == "h":
+          await asyncio.sleep(int(numTime)*60*60)
+        if dayTime == "d":
+          await asyncio.sleep(int(numTime)*60*60*24)
       
         await member.remove_roles(role)
 

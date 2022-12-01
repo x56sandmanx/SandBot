@@ -9,6 +9,7 @@ from discord.utils import get
 from datetime import datetime
 from discord import Member
 from typing import Optional
+from dotenv import load_dotenv
 import json
 intents = discord.Intents().all()
 client = commands.Bot(intents=intents, command_prefix='-')
@@ -137,5 +138,7 @@ async def kick_error(error, ctx):
       text = "Sorry {}, you do not have permissions to do that!".format(ctx.message.author)
       await client.send_message(ctx.message.channel, text)
 
-token = os.environ.get('TOKEN')
+load_dotenv('loadenv.env')
+
+token = os.getenv("DISCORD_TOKEN")
 client.run(token)

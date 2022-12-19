@@ -1,21 +1,25 @@
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 class Ban(commands.Cog):
   def __init__(self, client):
     self.client = client
 
-  @commands.command()
-  @commands.has_permissions(ban_members=True)
-  async def ban(self, ctx, member : discord.Member, *, reason=None, error):
-    await member.ban(reason=reason)
-    channel = discord.utils.get(member.guild.channels, name="command-logs📚")
+  @app_commands.command(name="ban",
+                        description="Ban a certain user")
+  @app_commands.describe(user="User being banned", reason="Reason for ban")
+  async def ban(self, interaction: discord.Interaction, user : discord.Member, reason: str):
+    channel = discord.utils.get(user.guild.channels, name="command-logs📚")
     embed=discord.Embed(title="Ban", color=0xc2b280)
-    embed.set_thumbnail(url=ctx.author.avatar_url)
-    embed.add_field(name="User", value=member.mention, inline=True)
-    embed.add_field(name="Moderator", value=ctx.message.author.mention, inline=True)
+    embed.set_thumbnail(url=user.avatar)
+    embed.add_field(name="User", value=user.mention, inline=True)
+    embed.add_field(name="Moderator", value=interaction.user.mention, inline=True)
     embed.add_field(name="Reason", value=reason, inline=True)
+    await interaction.response.send_message(embed=embed)
     await channel.send(embed=embed)
+    await user.send(embed=embed)
+    await user.ban(reason=reason)
 
-def setup(client):
-  client.add_cog(Ban(client))
+async def setup(client):
+  await client.add_cog(Ban(client))

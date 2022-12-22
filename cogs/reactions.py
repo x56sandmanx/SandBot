@@ -85,6 +85,7 @@ class Reaction(commands.Cog):
   async def react(self, ctx):
     embed=discord.Embed(title="Reaction Roles!", color=0xc2b280,timestamp=datetime.utcnow())
     embed.add_field(name="NSFW", value="🔞", inline=False)
+    embed.add_field(name="Ping Role", value="❗", inline=False)
     embed.add_field(name="Age", value="🧓: 21+\n👦: 17-20\n👶: 13-16", inline=False)
     embed.add_field(name="Gender", value="👨: Male\n👩: Female", inline=False)
     react_message = await ctx.send(embed=embed)

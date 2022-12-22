@@ -11,6 +11,8 @@ class Reaction(commands.Cog):
     guild = discord.utils.find(lambda g : g.id == payload.guild_id, self.client.guilds)
     if payload.emoji.name == '🔞':
       role = discord.utils.get(guild.roles, name='NSFW')
+    elif payload.emoji.name =='❗':
+      role = discord.utils.get(guild.roles, name='ping role')
     elif payload.emoji.name =='👶':
       role = discord.utils.get(guild.roles, name='13-16')
     elif payload.emoji.name=='👦':
@@ -46,6 +48,8 @@ class Reaction(commands.Cog):
     guild = discord.utils.find(lambda g : g.id == payload.guild_id, self.client.guilds)
     if payload.emoji.name == '🔞':
       role = discord.utils.get(guild.roles, name='NSFW')
+    elif payload.emoji.name =='❗':
+      role = discord.utils.get(guild.roles, name='ping role')
     elif payload.emoji.name =='👶':
       role = discord.utils.get(guild.roles, name='13-16')
     elif payload.emoji.name=='👦':
@@ -85,6 +89,7 @@ class Reaction(commands.Cog):
     embed.add_field(name="Gender", value="👨: Male\n👩: Female", inline=False)
     react_message = await ctx.send(embed=embed)
     await react_message.add_reaction("🔞")
+    await react_message.add_reaction("❗")
     await react_message.add_reaction("🧓")
     await react_message.add_reaction("👦")
     await react_message.add_reaction("👶")

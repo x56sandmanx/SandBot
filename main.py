@@ -50,6 +50,8 @@ async def on_message(message):
   if message.author.id != 819725848947982446:
     if 'colin' in message.content.lower():
       await message.channel.send('colin!')
+    if 'izzy' in message.content.lower():
+      await message.channel.send('izzy!')
 
 @client.event
 async def on_message_delete(message):

@@ -47,8 +47,9 @@ async def on_member_join(member: discord.Member):
 
 @client.event
 async def on_message(message):
-  if message.content.lower() == 'colin':
-    await message.channel.send('colin!')
+  if message.author.id != 819725848947982446:
+    if 'colin' in message.content.lower():
+      await message.channel.send('colin!')
 
 @client.event
 async def on_message_delete(message):

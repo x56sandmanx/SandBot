@@ -52,6 +52,8 @@ async def on_message(message):
       await message.channel.send('colin!')
     if 'izzy' in message.content.lower():
       await message.channel.send('izzy!')
+    if 'sam' in message.content.lower():
+      await message.channel.send('sam!')
 
 @client.event
 async def on_message_delete(message):

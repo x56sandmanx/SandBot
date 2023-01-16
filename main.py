@@ -70,20 +70,23 @@ async def on_message_delete(message):
 
 @client.event
 async def on_message_edit(message_before, message_after):
-  embed = discord.Embed(
-    title=message_before.author.name,
-    description=f"Message changed in **{message_before.channel}**",
-    color=0xc2b280,
-    timestamp=datetime.utcnow())
-  embed.set_thumbnail(url=message_before.author.avatar)
-  embed.add_field(name=message_before.content,
-                  value="The message before",
-                  inline="True")
-  embed.add_field(name=message_after.content,
-                  value="The message after",
-                  inline="True")
-  channel = discord.utils.get(message_before.author.guild.channels, name="logs📚")
-  await channel.send(embed=embed)
+  if(message_before.author.bot):
+    return
+  else:
+    embed = discord.Embed(
+      title=message_before.author.name,
+      description=f"Message changed in **{message_before.channel}**",
+      color=0xc2b280,
+      timestamp=datetime.utcnow())
+    embed.set_thumbnail(url=message_before.author.avatar)
+    embed.add_field(name=message_before.content,
+                    value="The message before",
+                    inline="True")
+    embed.add_field(name=message_after.content,
+                    value="The message after",
+                    inline="True")
+    channel = discord.utils.get(message_before.author.guild.channels, name="logs📚")
+    await channel.send(embed=embed)
 
 
 with open('reports.json', encoding='utf-8') as f:

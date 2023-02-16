@@ -54,7 +54,7 @@ async def on_message(message):
     await message.channel.send('izzy!')
   if 'sam' in words:
     await message.channel.send('sam!')
-
+    
 @client.event
 async def on_message_delete(message):
   embed = discord.Embed(

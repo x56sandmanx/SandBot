@@ -31,9 +31,9 @@ async def load():
 
 @client.event
 async def on_member_join(member: discord.Member):
-  channel = client.get_channel(797284193621114900)
-  channel2 = client.get_channel(845362775974477854)
-  channel3 = client.get_channel(797282913187659796)
+  channel = discord.utils.get(member.guild.channels, name="welcome👋")
+  channel2 = discord.utils.get(member.guild.channels, name="roles🔧")
+  channel3 = discord.utils.get(member.guild.channels, name="rules📜")
   embed = discord.Embed(
     title="The Sand Kingdom",
     description=
@@ -55,7 +55,6 @@ async def on_message(message):
   if 'sam' in words:
     await message.channel.send('sam!')
 
-
 @client.event
 async def on_message_delete(message):
   embed = discord.Embed(
@@ -65,26 +64,29 @@ async def on_message_delete(message):
     timestamp=datetime.utcnow())
   embed.set_thumbnail(url=message.author.avatar)
   embed.add_field(name=message.content, value="Deleted Message", inline="True")
-  channel = client.get_channel(799074188039946250)
+  channel = discord.utils.get(message.author.guild.channels, name="logs📚")
   await channel.send(embed=embed)
 
 
 @client.event
 async def on_message_edit(message_before, message_after):
-  embed = discord.Embed(
-    title=message_before.author.name,
-    description=f"Message changed in **{message_before.channel}**",
-    color=0xc2b280,
-    timestamp=datetime.utcnow())
-  embed.set_thumbnail(url=message_before.author.avatar)
-  embed.add_field(name=message_before.content,
-                  value="The message before",
-                  inline="True")
-  embed.add_field(name=message_after.content,
-                  value="The message after",
-                  inline="True")
-  channel = client.get_channel(799074188039946250)
-  await channel.send(embed=embed)
+  if(message_before.author.bot):
+    return
+  else:
+    embed = discord.Embed(
+      title=message_before.author.name,
+      description=f"Message changed in **{message_before.channel}**",
+      color=0xc2b280,
+      timestamp=datetime.utcnow())
+    embed.set_thumbnail(url=message_before.author.avatar)
+    embed.add_field(name=message_before.content,
+                    value="The message before",
+                    inline="True")
+    embed.add_field(name=message_after.content,
+                    value="The message after",
+                    inline="True")
+    channel = discord.utils.get(message_before.author.guild.channels, name="logs📚")
+    await channel.send(embed=embed)
 
 
 with open('reports.json', encoding='utf-8') as f:
@@ -155,7 +157,7 @@ async def warn(interaction: discord.Interaction, user: discord.User,
   with open('reports.json', 'w+') as f:
     json.dump(report, f)
 
-  channel = client.get_channel(886329173877080144)
+  channel = discord.utils.get(user.guild.channels, name="command-logs📚")
   embed = discord.Embed(title="Warn",
                         color=0xc2b280,
                         timestamp=datetime.utcnow())

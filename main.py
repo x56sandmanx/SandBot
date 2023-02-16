@@ -45,6 +45,16 @@ async def on_member_join(member: discord.Member):
   role = discord.utils.get(member.guild.roles, name="Sandling")
   await member.add_roles(role)
 
+@client.event
+async def on_message(message):
+  words = message.content.lower().split()
+  if 'colin' in words:
+    await message.channel.send('colin!')
+  if 'izzy' in words:
+    await message.channel.send('izzy!')
+  if 'sam' in words:
+    await message.channel.send('sam!')
+
 
 @client.event
 async def on_message_delete(message):
